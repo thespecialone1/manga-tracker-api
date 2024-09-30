@@ -1,8 +1,10 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"manga-tracker-api/internal/manga"
 	"net/http"
 )
 func GetRoot(w http.ResponseWriter, r *http.Request) {
@@ -11,14 +13,14 @@ func GetRoot(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetManga(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got /hello request\n")
-	w.Header().Set("Content-Type", "text/html")
-	io.WriteString(w, `<html>
-		<head>
-			<title>Manga Release Dates</title>
-		</head>
-		<body>
-			<h1 style="font-size: 2em;">Here is the list of release dates of upcoming Manga</h1>
-		</body>
-	</html>`)
+				//call ScrapingManga and get the scraped data
+	mangaList, err:= manga.ScrapingManga()
+	if err!= nil {
+		http.Error(w, "Failed to fetch manga data", http.StatusInternalServerError)
+		return
+	}
+				//Json :- set reponse type as json
+	w.Header().Set("Content-Type", "application/json")
+				//send the data as json
+	json.NewEncoder(w).Encode(mangaList)
 }

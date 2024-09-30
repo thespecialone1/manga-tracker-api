@@ -1,7 +1,0 @@
-package manga
-
-import "fmt"
-
-func Model() {
-	fmt.Printf("JSON Object")
-}

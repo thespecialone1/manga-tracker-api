@@ -1,44 +1,63 @@
-package main
+package manga
 
 import (
 	"fmt"
 	"log"
+	// "log"
+	// "os"
 
 	"github.com/gocolly/colly"
 )
 
-func main() {
-	// Create a new collector
-	c := colly.NewCollector()
 
-	// Set user-agent to mimic a browser request
+//struct
+type Manga struct{
+	Title		string  
+	Pages		string
+	Distributor	string
+	ReleaseDate	string
+	SRP			string	
+}
+
+func ScrapingManga()([]Manga, error) {
+	var mangas []Manga
+	c:= colly.NewCollector()
 	c.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
 
-	// Visit the URL
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL)
+	url:= "https://www.animenewsnetwork.com/encyclopedia/releases.php?format=manga"
+
+	c.OnRequest(func (r *colly.Request)  {
+		fmt.Println("visiting...", r.URL)
 	})
 
-	// Extract data from the table
-	c.OnHTML("#content-zone > div > table > tbody > tr", func(e *colly.HTMLElement) {
-		// Each <tr> represents a row in the table
-		title := e.ChildText("td:nth-child(1)")  // First column for release date
-		timePages := e.ChildText("td:nth-child(2)")        // Second column for title
-		publisher := e.ChildText("td:nth-child(3)")       // Third column for format
-		releaseDate := e.ChildText("td:nth-child(4)")    // Fourth column for publisher
+	c.OnHTML("#content-zone > div > table > tbody> tr", func (e *colly.HTMLElement)  {
+		title:= e.ChildText("td:nth-child(1)")
+		pages:= e.ChildText("td:nth-child(2)")
+		distributor:= e.ChildText("td:nth-child(3)")
+		releasedate:= e.ChildText("td:nth-child(4)")
+		srp:= e.ChildText("td:nth-child(5)")
 
-		// Print the extracted data
-		fmt.Printf("%s, %s, %s, %s\n", title, timePages, publisher, releaseDate)
+		manga:= Manga{
+			Title: 	     title,
+			Pages: 		 pages,
+			Distributor: distributor,
+			ReleaseDate: releasedate,
+			SRP: 		 srp,	
+		}
+
+		mangas= append(mangas, manga)
+	
 	})
 
-	// Handle any errors that occur during the scraping
-	c.OnError(func(_ *colly.Response, err error) {
-		log.Println("Something went wrong:", err)
+	c.OnError(func (_ *colly.Response, err error)  {
+		log.Println("Error...", err)
 	})
 
-	// Visit the page
-	err := c.Visit("https://www.animenewsnetwork.com/encyclopedia/releases.php?format=manga")
-	if err != nil {
-		log.Fatal("Error visiting the page:", err)
+	err:= c.Visit(url)
+	if err!=nil {
+		log.Fatal("Error while visiting the url...", err)
 	}
+	return mangas, nil
 }
+
+	
