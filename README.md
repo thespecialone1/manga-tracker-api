@@ -17,7 +17,21 @@ This is a simple API that scrapes manga release data from the Anime News Network
 - **Terraform**: Infrastructure as Code (IaC) tool for deployment (upcoming).
 
 ## Project Structure
-manga-tracker-api/ │ ├── internal/ ├── manga/ │ └── scraper.go # Contains the scraping logic │ ├── api/ │ └── handler.go # API handler functions for the /manga endpoint │ ├── cmd/ │ └── main.go # Entry point for the application │ ├── Dockerfile # Dockerfile to containerize the API ├── README.md # Project documentation └── go.mod # Dependency management
+manga-tracker-api/
+│
+├── internal/
+│   └── manga/
+│       └── scraper.go      # Contains the scraping logic
+│
+├── api/
+│   └── handler.go          # API handler functions for the /manga endpoint
+│
+├── cmd/
+│   └── main.go             # Entry point for the application
+│
+├── Dockerfile              # Dockerfile to containerize the API (not uploaded yet)
+├── README.md               # Project documentation
+└── go.mod                  # Dependency management
 
 
 ## Getting Started
