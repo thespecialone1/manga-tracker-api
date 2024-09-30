@@ -64,10 +64,10 @@ The server will start on port 3333 by default. You can access the API at:
 - Home: http://localhost:3333/
 - Manga Releases: http://localhost:3333/manga
 
-###Scraping Logic
+### Scraping Logic
 The scraping logic is located in the internal/manga/scraper.go file. It scrapes manga release data from Anime News Network and returns it in a structured format.
 
-###Endpoints
+### Endpoints
 1. GET /
 - Description: A basic home route that returns a welcome message.
 - URL: /
