@@ -47,7 +47,7 @@ manga-tracker-api/
 Clone the project to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/manga-tracker-api.git
+git clone https://github.com/thespecialone1/manga-tracker-api.git
 cd manga-tracker-api
 ```
 Download the required Go dependencies:
