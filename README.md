@@ -17,6 +17,7 @@ This is a simple API that scrapes manga release data from the Anime News Network
 - **Terraform**: Infrastructure as Code (IaC) tool for deployment (upcoming).
 
 ## Project Structure
+```
 manga-tracker-api/
 │
 ├── internal/
@@ -32,7 +33,7 @@ manga-tracker-api/
 ├── Dockerfile              # Dockerfile to containerize the API (not uploaded yet)
 ├── README.md               # Project documentation
 └── go.mod                  # Dependency management
-
+```
 
 ## Getting Started
 
